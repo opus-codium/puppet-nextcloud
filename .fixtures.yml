@@ -6,3 +6,4 @@ fixtures:
     stdlib: "puppetlabs/stdlib"
     postgresql: "puppetlabs/postgresql"
     concat: "puppetlabs/concat"
+    archive: "puppet/archive"

@@ -1,3 +1,4 @@
 ---
 nextcloud::hostname: nextcloud
 nextcloud::database::password: password
+nextcloud::install::initial_admin_password: password
