@@ -12,4 +12,5 @@ class nextcloud (
   $data_dir            = "${persistent_data_dir}/data"
   $config_dir          = "${persistent_data_dir}/config"
 
+  contain nextcloud::database
 }
