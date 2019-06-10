@@ -1,0 +1,59 @@
+<?php
+$CONFIG = array (
+  // files/data
+  'datadirectory' => '<%= $nextcloud::data_dir %>',
+  'apps_paths' =>
+  array (
+    0 =>
+    array (
+      'path' => '<%= $nextcloud::current_version_dir %>/apps',
+      'url' => '/apps',
+      'writable' => false,
+    ),
+    1 =>
+    array (
+      'path' => '<%= $nextcloud::current_version_dir %>/extra-apps',
+      'url' => '/extra-apps',
+      'writable' => true,
+    ),
+  ),
+
+  // domains/urls
+  'trusted_domains' =>
+  array (
+    0 => '<%= $nextcloud::hostname -%>',
+  ),
+  'overwrite.cli.url' => 'https://<%= $nextcloud::hostname %>',
+
+  // database
+  'dbtype' => 'pgsql',
+  'dbname' => '<%= $nextcloud::database::database -%>',
+  'dbhost' => 'localhost',
+  'dbport' => '',
+  'dbtableprefix' => 'oc_',
+  'dbuser' => '<%= $nextcloud::database::user -%>',
+  'dbpassword' => '<%= $nextcloud::database::password -%>',
+
+  // mail
+  'mail_domain' => '<%= $nextcloud::hostname %>',
+  'mail_from_address' => 'no-reply',
+  'mail_smtpauthtype' => 'LOGIN',
+  'mail_smtpmode' => 'php',
+
+  // hardening
+  'updatechecker' => false,
+  'upgrade.disable-web' => true,
+  'appstoreenabled' => false,
+  'config_is_read_only' => true,
+  'updater.release.channel' => 'production',
+
+  // language
+  'default_language' => 'fr',
+
+  // URLs rewriting
+  'htaccess.RewriteBase' => '/',
+
+  // logging
+  'log_type' => 'syslog',
+  'loglevel' => '2',
+);

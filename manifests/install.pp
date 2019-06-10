@@ -39,23 +39,29 @@ class nextcloud::install (
       require         => File[$extract_dir],
     }
 
-    $current_version_dir = "${nextcloud::base_dir}/current"
-
-    file { $current_version_dir:
+    file { $nextcloud::current_version_dir:
       ensure  => link,
       target  => $extract_dir,
       require => Archive[$archive_name],
     }
-    -> file {"${current_version_dir}/config/config.php":
+
+    file {"${nextcloud::current_version_dir}/config/config.php":
       ensure => link,
       target => $nextcloud::config_main_file,
     }
-    -> file { "${current_version_dir}/config":
-      ensure => directory,
-      owner  => $nextcloud::user,
-      group  => $nextcloud::group,
-      mode   => '0750',
+    File[$nextcloud::current_version_dir] -> File["${nextcloud::current_version_dir}/config/config.php"]
+
+    file { "${nextcloud::current_version_dir}/config/custom.config.php":
+      ensure => link,
+      target => "${nextcloud::config_dir}/custom.php"
     }
+    File[$nextcloud::current_version_dir] -> File["${nextcloud::current_version_dir}/config/custom.config.php"]
+
+    file { "${nextcloud::current_version_dir}/extra-apps":
+      ensure => link,
+      target => $nextcloud::apps_dir,
+    }
+    File[$nextcloud::current_version_dir] -> File["${nextcloud::current_version_dir}/extra-apps"]
 
     $install_configuration = {
       'database'      => 'pgsql',
@@ -70,10 +76,14 @@ class nextcloud::install (
     $install_params = $install_configuration.map |$option, $value| { "--${option} '${value}'" }.join(' ')
 
     exec { 'nextcloud-install':
-      command => "/usr/bin/php ${current_version_dir}/occ maintenance:install ${install_params}",
-      cwd     => $current_version_dir,
+      command => "/usr/bin/php ${nextcloud::current_version_dir}/occ maintenance:install ${install_params}",
+      cwd     => $nextcloud::current_version_dir,
       user    => $nextcloud::user,
       group   => $nextcloud::group,
     }
+    File[$nextcloud::current_version_dir] -> Exec['nextcloud-install']
+    File["${nextcloud::current_version_dir}/config/config.php"] -> Exec['nextcloud-install']
+    File["${nextcloud::current_version_dir}/config/custom.config.php"] -> Exec['nextcloud-install']
+    File["${nextcloud::current_version_dir}/extra-apps"] -> Exec['nextcloud-install']
   }
 }

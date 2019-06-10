@@ -14,6 +14,8 @@ class nextcloud (
   $data_dir            = "${persistent_data_dir}/data"
   $config_dir          = "${persistent_data_dir}/config"
   $config_main_file    = "${config_dir}/main.php"
+  $apps_dir            = "${persistent_data_dir}/apps"
+  $current_version_dir = "${base_dir}/current"
 
   contain nextcloud::database
   contain nextcloud::dependencies
