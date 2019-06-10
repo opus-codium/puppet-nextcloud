@@ -85,5 +85,23 @@ class nextcloud::install (
     File["${nextcloud::current_version_dir}/config/config.php"] -> Exec['nextcloud-install']
     File["${nextcloud::current_version_dir}/config/custom.config.php"] -> Exec['nextcloud-install']
     File["${nextcloud::current_version_dir}/extra-apps"] -> Exec['nextcloud-install']
+
+    $htaccess_file = "${nextcloud::current_version_dir}/.htaccess"
+    file {$htaccess_file:
+      ensure => file,
+      owner  => $nextcloud::user,
+      group  => $nextcloud::group,
+      mode   => '0644',
+    }
+
+    exec { 'nextcloud-update-htaccess':
+      command     => "/usr/bin/php ${nextcloud::current_version_dir}/occ maintenance:update:htaccess",
+      cwd         => $nextcloud::current_version_dir,
+      user        => $nextcloud::user,
+      group       => $nextcloud::group,
+      refreshonly => true,
+    }
+    Exec['nextcloud-install'] ~> Exec['nextcloud-update-htaccess']
+    File[$htaccess_file] -> Exec['nextcloud-update-htaccess']
   }
 }
