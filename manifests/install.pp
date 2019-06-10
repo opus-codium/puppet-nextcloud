@@ -103,5 +103,15 @@ class nextcloud::install (
     }
     Exec['nextcloud-install'] ~> Exec['nextcloud-update-htaccess']
     File[$htaccess_file] -> Exec['nextcloud-update-htaccess']
+
+    $facts_file = '/etc/puppetlabs/facter/facts.d/nextcloud.yaml'
+    file { $facts_file:
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0640',
+      content => epp('nextcloud/facts.yaml.epp', {version => $initial_version, path => $nextcloud::base_dir})
+    }
+    Exec['nextcloud-install'] -> File[$facts_file]
   }
 }

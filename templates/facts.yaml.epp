@@ -1,0 +1,4 @@
+---
+nextcloud:
+  version: <%= $version %>
+  path: <%= $path %>
