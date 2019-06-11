@@ -21,9 +21,13 @@ class nextcloud (
   contain nextcloud::dependencies
   contain nextcloud::base
   contain nextcloud::install
+  include nextcloud::config
 
   Class['nextcloud::dependencies']
   -> Class['nextcloud::database']
   -> Class['nextcloud::base']
   -> Class['nextcloud::install']
+
+  Class['nextcloud::base']
+  -> Class['nextcloud::config']
 }

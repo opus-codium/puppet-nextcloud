@@ -50,11 +50,4 @@ class nextcloud::base {
     group  => $nextcloud::group,
     mode   => '0750',
   }
-  -> file { "${nextcloud::config_dir}/custom.php":
-    ensure  => file,
-    owner   => 'root',
-    group   => $nextcloud::group,
-    mode    => '0640',
-    content => epp('nextcloud/custom.config.php.epp')
-  }
 }

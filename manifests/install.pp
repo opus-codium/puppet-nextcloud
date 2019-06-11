@@ -45,23 +45,7 @@ class nextcloud::install (
       require => Archive[$archive_name],
     }
 
-    file {"${nextcloud::current_version_dir}/config/config.php":
-      ensure => link,
-      target => $nextcloud::config_main_file,
-    }
-    File[$nextcloud::current_version_dir] -> File["${nextcloud::current_version_dir}/config/config.php"]
-
-    file { "${nextcloud::current_version_dir}/config/custom.config.php":
-      ensure => link,
-      target => "${nextcloud::config_dir}/custom.php"
-    }
-    File[$nextcloud::current_version_dir] -> File["${nextcloud::current_version_dir}/config/custom.config.php"]
-
-    file { "${nextcloud::current_version_dir}/extra-apps":
-      ensure => link,
-      target => $nextcloud::apps_dir,
-    }
-    File[$nextcloud::current_version_dir] -> File["${nextcloud::current_version_dir}/extra-apps"]
+    File[$nextcloud::current_version_dir] -> Class['nextcloud::config']
 
     $install_configuration = {
       'database'      => 'pgsql',
@@ -81,10 +65,7 @@ class nextcloud::install (
       user    => $nextcloud::user,
       group   => $nextcloud::group,
     }
-    File[$nextcloud::current_version_dir] -> Exec['nextcloud-install']
-    File["${nextcloud::current_version_dir}/config/config.php"] -> Exec['nextcloud-install']
-    File["${nextcloud::current_version_dir}/config/custom.config.php"] -> Exec['nextcloud-install']
-    File["${nextcloud::current_version_dir}/extra-apps"] -> Exec['nextcloud-install']
+    Class['nextcloud::config'] -> Exec['nextcloud-install']
 
     $htaccess_file = "${nextcloud::current_version_dir}/.htaccess"
     file {$htaccess_file:
