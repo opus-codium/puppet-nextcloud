@@ -1,0 +1,11 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Turn on/off maintenance mode",
+  "parameters": {
+    "mode": {
+      "description": "Target maintenance mode",
+      "type": "Optional[Enum[on,off]]"
+    }
+  }
+}
