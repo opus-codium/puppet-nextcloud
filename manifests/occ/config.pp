@@ -12,11 +12,11 @@
 #     group => 'nextcloud',
 #   }
 define nextcloud::occ::config (
-  Variant[String, Array[String]] $key,
-  Variant[String, Boolean] $value,
-  String $path,
-  String $user,
-  String $group = $user,
+  Variant[String[1], Array[String[1]]] $key,
+  Variant[String[1], Boolean] $value,
+  Stdlib::Absolutepath $path,
+  String[1] $user,
+  String[1] $group = $user,
 ) {
   $type = $value ? {
     Boolean => 'boolean',
@@ -24,11 +24,11 @@ define nextcloud::occ::config (
     default => fail('Undefined type')
   }
   $key_as_arg = [$key].flatten.map |$name| { "'${name}'" }.join(' ')
-  exec { "occ_config-${title}":
-    command => "/usr/bin/php ${path}/occ config:system:set ${key_as_arg} --value='${value}' --type='${type}'",
-    cwd     => $path,
-    user    => $user,
-    group   => $group,
-    unless  => "/usr/bin/test \"$(/usr/bin/php ${path}/occ config:system:get ${key_as_arg})\" = \"${value}\"",
+  nextcloud::occ::exec { "config ${title}":
+    args   => "config:system:set ${key_as_arg} --value='${value}' --type='${type}'",
+    path   => $path,
+    user   => $user,
+    group  => $group,
+    unless => "/usr/bin/test \"$(/usr/bin/php ${path}/occ config:system:get ${key_as_arg})\" = \"${value}\"",
   }
 }

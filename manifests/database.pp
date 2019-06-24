@@ -5,9 +5,9 @@
 # @example
 #   include nextcloud::database
 class nextcloud::database (
-  String $password,
-  String $user     = 'nextcloud',
-  String $database = 'nextcloud',
+  String[20] $password,
+  String[1] $user     = 'nextcloud',
+  String[1] $database = 'nextcloud',
 ) {
   include postgresql::server
 

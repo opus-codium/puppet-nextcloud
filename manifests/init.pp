@@ -5,7 +5,7 @@
 # @example
 #   include nextcloud
 class nextcloud (
-  String[1] $hostname,
+  Stdlib::Fqdn $hostname,
   String[1] $user      = 'nextcloud',
   String[1] $group     = $user,
 ){

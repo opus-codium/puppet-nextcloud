@@ -15,34 +15,16 @@ class nextcloud::install (
   $nextcloud_facts = $facts['nextcloud']
 
   if $nextcloud_facts == undef {
-    $archive_basename = "nextcloud-${initial_version}"
-    $archive_name     = "${archive_basename}.tar.bz2"
-    $archive_source   = "https://download.nextcloud.com/server/releases/${archive_name}"
-    $source_dir       = "${nextcloud::base_dir}/src"
-    $extract_dir      = "${$source_dir}/${archive_basename}"
-
-    file { [$source_dir, $extract_dir]:
-      ensure => directory,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0755',
+    nextcloud::download { $initial_version:
+      path => $nextcloud::base_dir,
     }
 
-    archive { $archive_name:
-      path            => "/tmp/${archive_name}",
-      source          => $archive_source,
-      extract         => true,
-      extract_command => 'tar xfa %s --strip-components=1',
-      extract_path    => $extract_dir,
-      creates         => "${extract_dir}/index.php",
-      cleanup         => true,
-      require         => File[$extract_dir],
-    }
+    $install_dir = "${nextcloud::base_dir}/src/nextcloud-${initial_version}"
 
     file { $nextcloud::current_version_dir:
       ensure  => link,
-      target  => $extract_dir,
-      require => Archive[$archive_name],
+      target  => $install_dir,
+      require => Nextcloud::Download[$initial_version],
     }
 
     File[$nextcloud::current_version_dir] -> Class['nextcloud::config']
@@ -59,40 +41,26 @@ class nextcloud::install (
 
     $install_params = $install_configuration.map |$option, $value| { "--${option} '${value}'" }.join(' ')
 
-    exec { 'nextcloud-install':
-      command => "/usr/bin/php ${nextcloud::current_version_dir}/occ maintenance:install ${install_params}",
-      cwd     => $nextcloud::current_version_dir,
+    nextcloud::occ::exec { 'nextcloud-install':
+      args  => "maintenance:install ${install_params}",
+      path  => $nextcloud::current_version_dir,
+      user  => $nextcloud::user,
+      group => $nextcloud::group,
+    }
+    Class['nextcloud::config'] -> Nextcloud::Occ::Exec['nextcloud-install']
+
+    nextcloud::htaccess { $nextcloud::current_version_dir:
+      user  => $nextcloud::user,
+      group => $nextcloud::group,
+    }
+    Nextcloud::Occ::Exec['nextcloud-install'] ~> Nextcloud::Htaccess[$nextcloud::current_version_dir]
+
+    nextcloud::facts { 'set nextcloud facts':
+      version => $initial_version,
+      path    => $nextcloud::base_dir,
       user    => $nextcloud::user,
       group   => $nextcloud::group,
     }
-    Class['nextcloud::config'] -> Exec['nextcloud-install']
-
-    $htaccess_file = "${nextcloud::current_version_dir}/.htaccess"
-    file {$htaccess_file:
-      ensure => file,
-      owner  => $nextcloud::user,
-      group  => $nextcloud::group,
-      mode   => '0644',
-    }
-
-    exec { 'nextcloud-update-htaccess':
-      command     => "/usr/bin/php ${nextcloud::current_version_dir}/occ maintenance:update:htaccess",
-      cwd         => $nextcloud::current_version_dir,
-      user        => $nextcloud::user,
-      group       => $nextcloud::group,
-      refreshonly => true,
-    }
-    Exec['nextcloud-install'] ~> Exec['nextcloud-update-htaccess']
-    File[$htaccess_file] -> Exec['nextcloud-update-htaccess']
-
-    $facts_file = '/etc/puppetlabs/facter/facts.d/nextcloud.yaml'
-    file { $facts_file:
-      ensure  => file,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0640',
-      content => epp('nextcloud/facts.yaml.epp', {version => $initial_version, path => $nextcloud::base_dir})
-    }
-    Exec['nextcloud-install'] -> File[$facts_file]
+    Nextcloud::Occ::Exec['nextcloud-install'] -> Nextcloud::Facts['set nextcloud facts']
   }
 }

@@ -1,16 +1,11 @@
-# @summary A short summary of the purpose of this class
+# @summary Create config files and setup sources directory
 #
-# A description of what this class does
+# This creates custom configuration files then setup current sources directory
 #
 # @example
 #   include nextcloud::config
 class nextcloud::config {
   include nextcloud
-
-  file {"${nextcloud::current_version_dir}/config/config.php":
-    ensure => link,
-    target => $nextcloud::config_main_file,
-  }
 
   file { "${nextcloud::config_dir}/custom.php":
     ensure  => file,
@@ -19,13 +14,9 @@ class nextcloud::config {
     mode    => '0640',
     content => epp('nextcloud/custom.config.php.epp')
   }
-  -> file { "${nextcloud::current_version_dir}/config/custom.config.php":
-    ensure => link,
-    target => "${nextcloud::config_dir}/custom.php"
-  }
-
-  file { "${nextcloud::current_version_dir}/extra-apps":
-    ensure => link,
-    target => $nextcloud::apps_dir,
+  -> nextcloud::setup { $nextcloud::current_version_dir:
+    config_main_file => $nextcloud::config_main_file,
+    config_dir       => $nextcloud::config_dir,
+    apps_dir         => $nextcloud::apps_dir,
   }
 }
