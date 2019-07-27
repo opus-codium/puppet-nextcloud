@@ -1,0 +1,7 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Check if an update is available using `occ update:check`",
+  "parameters": {
+  }
+}
