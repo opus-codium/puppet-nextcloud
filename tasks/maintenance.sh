@@ -14,4 +14,4 @@ nextcloud_user=$(/usr/bin/stat -c '%U' "${nextcloud_path}/current/.htaccess")
 occ_maintenance_option=''
 [ -n $PT_mode ] && occ_maintenance_option="--${PT_mode}"
 
-cd $nextcloud_path/current && sudo -u nextcloud /usr/bin/php occ maintenance:mode $occ_maintenance_option
+cd $nextcloud_path/current && sudo -u $nextcloud_user /usr/bin/php occ maintenance:mode $occ_maintenance_option
