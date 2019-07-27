@@ -48,6 +48,6 @@ class nextcloud::base {
     ensure => directory,
     owner  => $nextcloud::user,
     group  => $nextcloud::group,
-    mode   => '0750',
+    mode   => '0751',
   }
 }
