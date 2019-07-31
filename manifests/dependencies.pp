@@ -5,6 +5,8 @@
 # @example
 #   include nextcloud::dependencies
 class nextcloud::dependencies {
+  assert_private()
+
   $requirements = [
     'libmagickcore-6.q16-3-extra',
     'php-apcu',

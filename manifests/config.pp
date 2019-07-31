@@ -7,6 +7,8 @@
 class nextcloud::config {
   include nextcloud
 
+  assert_private()
+
   file { "${nextcloud::config_dir}/custom.php":
     ensure  => file,
     owner   => 'root',

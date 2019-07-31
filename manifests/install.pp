@@ -8,6 +8,8 @@ class nextcloud::install {
   include nextcloud
   include nextcloud::database
 
+  assert_private()
+
   $nextcloud_facts = $facts['nextcloud']
 
   if $nextcloud_facts == undef {

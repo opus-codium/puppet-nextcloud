@@ -7,6 +7,8 @@
 class nextcloud::base {
   include nextcloud
 
+  assert_private()
+
   user { $nextcloud::user:
     ensure     => present,
     home       => $nextcloud::base_dir,
