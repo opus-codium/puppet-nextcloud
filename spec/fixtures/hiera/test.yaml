@@ -1,4 +1,4 @@
 ---
-nextcloud::hostname: nextcloud
-nextcloud::database::password: password
-nextcloud::install::initial_admin_password: password
+nextcloud::hostname: "nextcloud.example.com"
+nextcloud::database::password: "A password with more than 20 chars"
+nextcloud::install::initial_admin_password: "A password with more than 20 chars"

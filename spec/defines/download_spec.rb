@@ -1,9 +1,11 @@
 require 'spec_helper'
 
-describe 'nextcloud::download_and_prepare' do
+describe 'nextcloud::download' do
   let(:title) { 'namevar' }
   let(:params) do
-    {}
+    {
+      path: '/srv/www/nextcloud.example.com',
+    }
   end
 
   on_supported_os.each do |os, os_facts|

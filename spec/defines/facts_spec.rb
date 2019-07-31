@@ -3,7 +3,12 @@ require 'spec_helper'
 describe 'nextcloud::facts' do
   let(:title) { 'namevar' }
   let(:params) do
-    {}
+    {
+      version: 'version',
+      path: '/srv/www/nextcloud.example.com',
+      user: 'user',
+      group: 'group',
+    }
   end
 
   on_supported_os.each do |os, os_facts|
