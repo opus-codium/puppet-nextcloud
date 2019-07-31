@@ -4,38 +4,34 @@
 #
 # @example
 #   include nextcloud::install
-class nextcloud::install (
-  String[1] $initial_admin_password,
-  String[1] $initial_admin_username = 'admin',
-  String[1] $initial_version        = '13.0.4'
-) {
+class nextcloud::install {
   include nextcloud
   include nextcloud::database
 
   $nextcloud_facts = $facts['nextcloud']
 
   if $nextcloud_facts == undef {
-    nextcloud::download { $initial_version:
+    nextcloud::download { $nextcloud::initial_version:
       path => $nextcloud::base_dir,
     }
 
-    $install_dir = "${nextcloud::base_dir}/src/nextcloud-${initial_version}"
+    $install_dir = "${nextcloud::base_dir}/src/nextcloud-${nextcloud::initial_version}"
 
     file { $nextcloud::current_version_dir:
       ensure  => link,
       target  => $install_dir,
-      require => Nextcloud::Download[$initial_version],
+      require => Nextcloud::Download[$nextcloud::initial_version],
     }
 
     File[$nextcloud::current_version_dir] -> Class['nextcloud::config']
 
     $install_configuration = {
       'database'      => 'pgsql',
-      'database-name' => $nextcloud::database::database,
-      'database-user' => $nextcloud::database::user,
-      'database-pass' => $nextcloud::database::password,
-      'admin-user'    => $initial_admin_username,
-      'admin-pass'    => $initial_admin_password,
+      'database-name' => $nextcloud::database_name,
+      'database-user' => $nextcloud::database_username,
+      'database-pass' => $nextcloud::database_password,
+      'admin-user'    => $nextcloud::initial_admin_username,
+      'admin-pass'    => $nextcloud::initial_admin_password,
       'data-dir'      => $nextcloud::data_dir,
     }
 
@@ -56,7 +52,7 @@ class nextcloud::install (
     Nextcloud::Occ::Exec['nextcloud-install'] ~> Nextcloud::Htaccess[$nextcloud::current_version_dir]
 
     nextcloud::facts { 'set nextcloud facts':
-      version => $initial_version,
+      version => $nextcloud::initial_version,
       path    => $nextcloud::base_dir,
       user    => $nextcloud::user,
       group   => $nextcloud::group,

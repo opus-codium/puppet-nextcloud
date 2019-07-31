@@ -6,8 +6,14 @@
 #   include nextcloud
 class nextcloud (
   Stdlib::Fqdn $hostname,
-  String[1] $user      = 'nextcloud',
-  String[1] $group     = $user,
+  String[20]   $database_password,
+  String[1]    $initial_admin_password,
+  String[1]    $database_username      = 'nextcloud',
+  String[1]    $database_name          = 'nextcloud',
+  String[1]    $initial_admin_username = 'admin',
+  String[1]    $initial_version        = '13.0.4',
+  String[1]    $user                   = 'nextcloud',
+  String[1]    $group                  = $user,
 ){
   $base_dir            = "/srv/www/${hostname}"
   $persistent_data_dir = "${base_dir}/persistent-data"

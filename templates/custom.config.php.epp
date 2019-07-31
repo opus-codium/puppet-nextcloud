@@ -27,12 +27,12 @@ $CONFIG = array (
 
   // database
   'dbtype' => 'pgsql',
-  'dbname' => '<%= $nextcloud::database::database -%>',
+  'dbname' => '<%= $nextcloud::database_name -%>',
   'dbhost' => 'localhost',
   'dbport' => '',
   'dbtableprefix' => 'oc_',
-  'dbuser' => '<%= $nextcloud::database::user -%>',
-  'dbpassword' => '<%= $nextcloud::database::password -%>',
+  'dbuser' => '<%= $nextcloud::database_username -%>',
+  'dbpassword' => '<%= $nextcloud::database_password -%>',
 
   // mail
   'mail_domain' => '<%= $nextcloud::hostname %>',

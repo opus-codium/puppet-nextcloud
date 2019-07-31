@@ -4,15 +4,12 @@
 #
 # @example
 #   include nextcloud::database
-class nextcloud::database (
-  String[20] $password,
-  String[1] $user     = 'nextcloud',
-  String[1] $database = 'nextcloud',
-) {
+class nextcloud::database {
+  include nextcloud
   include postgresql::server
 
-  postgresql::server::db { $database:
-    user     => $user,
-    password => postgresql_password($user, $password),
+  postgresql::server::db { $nextcloud::database_name:
+    user     => $nextcloud::database_username,
+    password => postgresql_password($nextcloud::database_username, $nextcloud::database_password),
   }
 }
