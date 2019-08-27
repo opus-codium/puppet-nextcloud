@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 error () {
   echo $1 >&2
   exit 1
@@ -11,4 +13,6 @@ nextcloud_path=$(/opt/puppetlabs/bin/facter nextcloud.path)
 
 nextcloud_user=$(/usr/bin/stat -c '%U' "${nextcloud_path}/current/.htaccess")
 
-cd $nextcloud_path/current && sudo -u $nextcloud_user /usr/bin/php occ update:check
+cd $nextcloud_path/current
+sudo -u $nextcloud_user /usr/bin/php occ --version
+sudo -u $nextcloud_user /usr/bin/php occ update:check
