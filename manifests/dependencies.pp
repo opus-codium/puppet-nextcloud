@@ -18,7 +18,6 @@ class nextcloud::dependencies {
     "php${nextcloud::php_version}-intl",
     "php${nextcloud::php_version}-json",
     "php${nextcloud::php_version}-mbstring",
-    "php${nextcloud::php_version}-mcrypt",
     "php${nextcloud::php_version}-pgsql",
     "php${nextcloud::php_version}-xml",
     "php${nextcloud::php_version}-zip",
