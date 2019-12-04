@@ -8,6 +8,7 @@ class nextcloud (
   Stdlib::Fqdn $hostname,
   String[20]   $database_password,
   String[1]    $initial_admin_password,
+  String[3,3]  $php_version,
   String[1]    $database_username      = 'nextcloud',
   String[1]    $database_name          = 'nextcloud',
   String[1]    $initial_admin_username = 'admin',
