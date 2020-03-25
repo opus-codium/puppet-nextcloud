@@ -53,12 +53,9 @@ class nextcloud::install {
     }
     Nextcloud::Occ::Exec['nextcloud-install'] ~> Nextcloud::Htaccess[$nextcloud::current_version_dir]
 
-    nextcloud::facts { 'set nextcloud facts':
-      version => $nextcloud::initial_version,
-      path    => $nextcloud::base_dir,
-      user    => $nextcloud::user,
-      group   => $nextcloud::group,
+    class { 'nextcloud::facts::version':
+      version => $nextcloud::initial_version
     }
-    Nextcloud::Occ::Exec['nextcloud-install'] -> Nextcloud::Facts['set nextcloud facts']
+    Nextcloud::Occ::Exec['nextcloud-install'] -> Class['nextcloud::facts::version']
   }
 }

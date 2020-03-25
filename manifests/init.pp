@@ -6,15 +6,16 @@
 #   include nextcloud
 class nextcloud (
   Stdlib::Fqdn $hostname,
-  String[20]   $database_password,
-  String[1]    $initial_admin_password,
-  String[3,3]  $php_version,
-  String[1]    $database_username      = 'nextcloud',
-  String[1]    $database_name          = 'nextcloud',
-  String[1]    $initial_admin_username = 'admin',
-  String[1]    $initial_version        = '13.0.4',
-  String[1]    $user                   = 'nextcloud',
-  String[1]    $group                  = $user,
+  String[20] $database_password,
+  String[1] $initial_admin_password,
+  String[3,3] $php_version,
+  String[1] $database_username = 'nextcloud',
+  String[1] $database_name = 'nextcloud',
+  String[1] $initial_admin_username = 'admin',
+  String[1] $initial_version = '13.0.4',
+  String[1] $user = 'nextcloud',
+  String[1] $group = $user,
+  Array[String[1]] $services_to_restart_after_upgrade = [],
 ){
   $base_dir            = "/srv/www/${hostname}"
   $persistent_data_dir = "${base_dir}/persistent-data"
@@ -28,12 +29,14 @@ class nextcloud (
   contain nextcloud::dependencies
   contain nextcloud::base
   contain nextcloud::install
+  contain nextcloud::facts
   include nextcloud::config
 
   Class['nextcloud::dependencies']
   -> Class['nextcloud::database']
   -> Class['nextcloud::base']
   -> Class['nextcloud::install']
+  -> Class['nextcloud::facts']
 
   Class['nextcloud::base']
   -> Class['nextcloud::config']

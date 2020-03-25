@@ -1,6 +1,0 @@
----
-nextcloud:
-  version: <%= $version %>
-  path: <%= $path %>
-  user: <%= $user %>
-  group: <%= $group %>

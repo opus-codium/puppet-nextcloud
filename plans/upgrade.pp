@@ -21,7 +21,9 @@ plan nextcloud::upgrade(
     $group = $nextcloud_facts['group']
 
     $source_next_dir = "${base_dir}/src/nextcloud-${version}"
-    $source_current_dir = "${base_dir}/src/nextcloud-${nextcloud_facts['version']}"
+    $source_current_dir = "${base_dir}/src/nextcloud-${facts['nextcloud_version']}"
+
+    $services_to_restart_after_upgrade = $nextcloud_facts['services_to_restart_after_upgrade']
 
     nextcloud::occ::exec { 'enable maintenance mode':
       args  => 'maintenance:mode --on',
@@ -58,11 +60,8 @@ plan nextcloud::upgrade(
       user  => $user,
       group => $group,
     }
-    -> nextcloud::facts { 'update facts':
+    -> class { 'nextcloud::facts::version':
       version => $version,
-      path    => $base_dir,
-      user    => $user,
-      group   => $group,
     }
     -> nextcloud::occ::config { 'enable read only mode':
       key   => 'config_is_read_only',
@@ -80,10 +79,9 @@ plan nextcloud::upgrade(
 
     Nextcloud::Occ::Exec['upgrade'] ~> Nextcloud::Htaccess[$current_version_dir]
 
-    # Note: There is an inconsistency: 'nextcloud' class does not manage services, but this plan do.
-    service { ['apache2', 'php7.0-fpm']:
+    service { $services_to_restart_after_upgrade:
       ensure => 'running',
     }
-    Nextcloud::Occ::Exec['upgrade'] ~> Service['apache2', 'php7.0-fpm']
+    Nextcloud::Occ::Exec['upgrade'] ~> Service[$services_to_restart_after_upgrade]
   }
 }
