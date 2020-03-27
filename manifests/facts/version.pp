@@ -5,9 +5,6 @@
 class nextcloud::facts::version (
   String[1] $version,
 ) {
-
-  assert_private()
-
   $facts_file = '/etc/puppetlabs/facter/facts.d/nextcloud_version.yaml'
 
   $facts_hash = {
