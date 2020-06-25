@@ -1,0 +1,11 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Execute custom occ command",
+  "parameters": {
+    "command": {
+      "description": "OCC command",
+      "type": "String[1]"
+    }
+  }
+}
