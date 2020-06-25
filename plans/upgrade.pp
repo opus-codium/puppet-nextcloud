@@ -6,7 +6,7 @@ plan nextcloud::upgrade(
   # Copy over custom facts from the Bolt modulepath.
   # Run the `facter` command line tool to gather node information.
   $nodes.apply_prep
-  apply($nodes) {
+  $results = apply($nodes) {
     $nextcloud_facts = $facts['nextcloud']
 
     $base_dir            = $nextcloud_facts['path']
@@ -83,5 +83,11 @@ plan nextcloud::upgrade(
       ensure => 'running',
     }
     Nextcloud::Occ::Exec['upgrade'] ~> Service[$services_to_restart_after_upgrade]
+  }
+  $results.each |$result| {
+    notice("Host: ${result.report['host']}")
+    $result.report['logs'].each |$log| {
+      notice("  ${log['time']} [${log['level']}] ${log['source']}: ${log['message']}")
+    }
   }
 }

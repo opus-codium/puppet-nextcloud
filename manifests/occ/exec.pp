@@ -22,5 +22,6 @@ define nextcloud::occ::exec (
     group       => $group,
     unless      => $unless,
     refreshonly => $refreshonly,
+    logoutput   => true,
   }
 }
