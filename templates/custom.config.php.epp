@@ -55,5 +55,5 @@ $CONFIG = array (
 
   // logging
   'log_type' => 'syslog',
-  'loglevel' => '2',
+  'loglevel' => '<%= $nextcloud::log_level %>',
 );

@@ -15,6 +15,7 @@ class nextcloud (
   String[1] $initial_version = '13.0.4',
   String[1] $user = 'nextcloud',
   String[1] $group = $user,
+  Integer[0, 4] $log_level = 2,
   Array[String[1]] $services_to_restart_after_upgrade = [],
 ){
   $base_dir            = "/srv/www/${hostname}"
