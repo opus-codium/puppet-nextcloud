@@ -85,9 +85,9 @@ plan nextcloud::upgrade(
     Nextcloud::Occ::Exec['upgrade'] ~> Service[$services_to_restart_after_upgrade]
   }
   $results.each |$result| {
-    notice("Host: ${result.report['host']}")
+    out::message("Host: ${result.report['host']}")
     $result.report['logs'].each |$log| {
-      notice("  ${log['time']} [${log['level']}] ${log['source']}: ${log['message']}")
+      out::message("  ${log['time']} [${log['level']}] ${log['source']}: ${log['message']}")
     }
   }
 }
