@@ -36,9 +36,9 @@ plan nextcloud::app_install(
     }
   }
   $results.each |$result| {
-    notice("Host: ${result.report['host']}")
+    out::message("Host: ${result.report['host']}")
     $result.report['logs'].each |$log| {
-      notice("  ${log['time']} [${log['level']}] ${log['source']}: ${log['message']}")
+      out::message("  ${log['time']} [${log['level']}] ${log['source']}: ${log['message']}")
     }
   }
 }
