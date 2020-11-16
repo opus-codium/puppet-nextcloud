@@ -56,4 +56,7 @@ $CONFIG = array (
   // logging
   'log_type' => 'syslog',
   'loglevel' => '<%= $nextcloud::log_level %>',
+
+  // trashbin
+  'trashbin_retention_obligation' => '<%= $nextcloud::trashbin_retention %>',
 );
