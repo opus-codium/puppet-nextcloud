@@ -57,5 +57,9 @@ class nextcloud::install {
       version => $nextcloud::initial_version
     }
     Nextcloud::Occ::Exec['nextcloud-install'] -> Class['nextcloud::facts::version']
+  } else {
+    file { "${nextcloud::current_version_dir}/config/CAN_INSTALL":
+      ensure => absent,
+    }
   }
 }
