@@ -1,0 +1,12 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "List apps",
+  "parameters": {
+    "shipped": {
+      "description": "Show core Nextcloud apps too",
+      "type": "Boolean",
+      "default": false
+    }
+  }
+}
