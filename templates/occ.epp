@@ -1,0 +1,2 @@
+#!/bin/sh
+sudo -u <%= $nextcloud::user %> /usr/bin/php <%= $nextcloud::current_version_dir %>/occ "$@"

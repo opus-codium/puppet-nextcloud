@@ -33,6 +33,7 @@ class nextcloud (
   contain nextcloud::install
   contain nextcloud::facts
   include nextcloud::config
+  contain nextcloud::wrapper
 
   Class['nextcloud::dependencies']
   -> Class['nextcloud::database']
@@ -42,4 +43,5 @@ class nextcloud (
 
   Class['nextcloud::base']
   -> Class['nextcloud::config']
+  -> Class['nextcloud::wrapper']
 }
