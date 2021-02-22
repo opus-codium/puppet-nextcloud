@@ -1,0 +1,10 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Update all apps without confirmation",
+  "parameters": {
+  },
+  "files": [
+    "nextcloud/files/enable-appstore.config.php"
+  ]
+}
