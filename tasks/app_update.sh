@@ -13,7 +13,7 @@ error () {
 nextcloud_path=$(sudo /opt/puppetlabs/bin/facter nextcloud.path)
 
 # Module files location
-files_dir="$(dirname $0)/../files"
+files_dir="${PT__installdir}/nextcloud/files"
 
 # Target file in Nextcloud to overwrite current config
 config_overwrite_file="${nextcloud_path}/current/config/z-overwrite.config.php"
