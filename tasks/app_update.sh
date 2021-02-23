@@ -19,7 +19,7 @@ files_dir="${PT__installdir}/nextcloud/files"
 config_overwrite_file="${nextcloud_path}/current/config/z-overwrite.config.php"
 
 # Copy it from module to Nextcloud sources
-cat "${files_dir}/enable-appstore.config.php" | sudo tee $config_overwrite_file > /dev/null
+sudo tee $config_overwrite_file < "${files_dir}/enable-appstore.config.php" > /dev/null
 
 # The output
 /usr/local/bin/occ app:update --all
