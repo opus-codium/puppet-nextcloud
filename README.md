@@ -19,9 +19,11 @@ Hardening features:
 * Disable the app store; Again its a security breach to let user to install third party apps without a review
 
 Wishes:
-* Use different users to deploy and run the application¹
-* Allow to install apps using conformation (puppet agent) instead of orchestration (bolt/choria)
+* Core upgrade plan should check version (last minor to upgrade to next major)
 * Prevent from setting initial admin credentials
+* Allow to install apps using conformation (puppet agent) instead of orchestration (bolt/choria)
+* Detect which post-upgrade steps are needed (e.g. `db:add-missing-indices`, `db:add-missing-primary-keys`, etc.) using CLI/orchestration
+* Use different users to deploy and run the application¹
 * Improve the scope of _Nextcloud_ configuration that can be made outside of the web UI (e.g. In web UI, _Sharing_ → _Share by mail_ → _Send password by mail_: _disable_)
 
 [1] At time of writing, _Nextcloud_ does strange permissions check that prevent us to hardened this part
