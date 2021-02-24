@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 error () {
   echo $1 >&2
