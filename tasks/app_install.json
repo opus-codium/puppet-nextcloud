@@ -1,0 +1,14 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Install an application",
+  "parameters": {
+    "application": {
+      "description": "Application name to install",
+      "type": "String"
+    }
+  },
+  "files": [
+    "nextcloud/files/enable-appstore.config.php"
+  ]
+}
