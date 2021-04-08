@@ -37,7 +37,7 @@ class nextcloud::install {
       'data-dir'      => $nextcloud::data_dir,
     }
 
-    $install_params = $install_configuration.map |$option, $value| { "--${option} '${value}'" }.join(' ')
+    $install_params = $install_configuration.map |$option, $value| { "--${option} ${value.shell_escape()}" }.join(' ')
 
     nextcloud::occ::exec { 'nextcloud-install':
       args  => "maintenance:install ${install_params}",

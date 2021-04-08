@@ -23,12 +23,12 @@ define nextcloud::occ::config (
     String  => 'string',
     default => fail('Undefined type')
   }
-  $key_as_arg = [$key].flatten.map |$name| { "'${name}'" }.join(' ')
+  $key_as_arg = [$key].flatten.map |$name| { "${name.shell_escape()}" }.join(' ')
   nextcloud::occ::exec { "config ${title}":
-    args   => "config:system:set ${key_as_arg} --value='${value}' --type='${type}'",
+    args   => "config:system:set ${key_as_arg} --value=${value.shell_escape()} --type=${type.shell_escape()}",
     path   => $path,
     user   => $user,
     group  => $group,
-    unless => "/usr/bin/test \"$(/usr/bin/php ${path}/occ config:system:get ${key_as_arg})\" = \"${value}\"",
+    unless => "/usr/bin/test \"$(/usr/bin/php ${path}/occ config:system:get ${key_as_arg})\" = ${value.shell_escape()}",
   }
 }
