@@ -43,7 +43,7 @@ $CONFIG = array (
   // hardening
   'updatechecker' => false,
   'upgrade.disable-web' => true,
-  'appstoreenabled' => false,
+  'appstoreenabled' => getenv('PT_application') === false ? false : true,
   'config_is_read_only' => true,
   'updater.release.channel' => 'production',
 
