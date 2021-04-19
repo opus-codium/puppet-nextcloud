@@ -1,0 +1,27 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Invite a user",
+  "input_method": "stdin",
+  "parameters": {
+    "username": {
+      "description": "Username used to connect to Nextcloud",
+      "type": "String[1]"
+    },
+    "display_name": {
+      "description": "Display name",
+      "type": "Optional[String[1]]"
+    },
+    "group": {
+      "description": "Group",
+      "type": "Optional[String[1]]"
+    },
+    "email": {
+      "description": "Email",
+      "type": "String[1]"
+    }
+  },
+  "files": [
+    "ruby_task_helper/files/task_helper.rb"
+  ]
+}
