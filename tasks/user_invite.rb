@@ -55,6 +55,35 @@ class UserInviteTask < TaskHelper
     return
   end
 
+  def simulate_lost_password_request(url, user)
+    require 'net/http'
+    require 'json'
+
+    uri = URI("#{url}/login")
+
+    Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+      request = Net::HTTP::Get.new uri
+      response = http.request(request)
+
+      res = response.body.match(/data-requesttoken="(?<token>[^"]+)"/)
+
+      cookies = response.get_fields('Set-Cookie').map { |x| x.split('; ')[0] }.join('; ')
+
+      uri = URI("#{url}/lostpassword/email")
+      request = Net::HTTP::Post.new uri
+      request['requesttoken'] = res['token']
+      request['Cookie'] = cookies
+
+      request['Content-Type'] = 'application/json;charset=utf-8'
+
+      request.body = {
+        'user': user
+      }.to_json
+
+      response = http.request(request)
+
+      response
+    end
   end
 end
 
