@@ -13,6 +13,10 @@ class nextcloud::install {
   $nextcloud_facts = $facts['nextcloud']
 
   if $nextcloud_facts == undef {
+    $base_name = fqdn_rand_string(10)
+    $nextcloud_initial_admin_username = "admin-${fqdn_rand_string(5)}"
+    $nextcloud_initial_admin_password = fqdn_rand_string(10)
+
     nextcloud::download { $nextcloud::initial_version:
       path => $nextcloud::base_dir,
     }
@@ -32,8 +36,8 @@ class nextcloud::install {
       'database-name' => $nextcloud::database_name,
       'database-user' => $nextcloud::database_username,
       'database-pass' => $nextcloud::database_password,
-      'admin-user'    => $nextcloud::initial_admin_username,
-      'admin-pass'    => $nextcloud::initial_admin_password,
+      'admin-user'    => $nextcloud_initial_admin_username,
+      'admin-pass'    => $nextcloud_initial_admin_password,
       'data-dir'      => $nextcloud::data_dir,
     }
 
@@ -52,6 +56,14 @@ class nextcloud::install {
       group => $nextcloud::group,
     }
     Nextcloud::Occ::Exec['nextcloud-install'] ~> Nextcloud::Htaccess[$nextcloud::current_version_dir]
+
+    nextcloud::occ::exec { 'delete-admin':
+      args  => "user:delete ${nextcloud_initial_admin_username}",
+      path  => $nextcloud::current_version_dir,
+      user  => $nextcloud::user,
+      group => $nextcloud::group,
+    }
+    Nextcloud::Occ::Exec['nextcloud-install'] -> Nextcloud::Occ::Exec['delete-admin']
 
     class { 'nextcloud::facts::version':
       version => $nextcloud::initial_version
