@@ -13,7 +13,7 @@
       "type": "Optional[String[1]]"
     },
     "group": {
-      "description": "Group",
+      "description": "Group (e.g. 'admin')",
       "type": "Optional[String[1]]"
     },
     "email": {
