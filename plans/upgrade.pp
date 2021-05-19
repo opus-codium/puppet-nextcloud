@@ -21,7 +21,7 @@ plan nextcloud::upgrade (
       }
     } else {
       # During PDK tests, 'report' is not filled (ie. set to undef)
-      out::message("You should not see this message outside tests")
+      out::message('You should not see this message outside tests')
     }
   }
 }

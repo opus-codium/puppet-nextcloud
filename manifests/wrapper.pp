@@ -7,11 +7,11 @@ class nextcloud::wrapper {
 
   assert_private()
 
-  file { "/usr/local/bin/occ":
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
+  file { '/usr/local/bin/occ':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
     content => epp('nextcloud/occ.epp')
   }
 }
