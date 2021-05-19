@@ -17,7 +17,7 @@ Hardening features:
 * Split additionnal apps from core apps, to track what comes from core and what is added
 * Disable the upgrade from UI; Yes, its a big security breach to allow an application to rewrite itself
 * Disable the app store; Again its a security breach to let user to install third party apps without a review
-* No admin user available after install
+* Install without default administrator user
 
 Wishes:
 * Core upgrade plan should check version (last minor to upgrade to next major)
