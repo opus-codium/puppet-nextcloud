@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe 'nextcloud' do
+  let(:params) do
+    {
+      hostname: 'nextcloud.example.com',
+      database_password: 'the super secret password used by postgresql',
+    }
+  end
+
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
