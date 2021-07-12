@@ -5,6 +5,7 @@ describe 'nextcloud' do
     {
       hostname: 'nextcloud.example.com',
       database_password: 'the super secret password used by postgresql',
+      default_language: 'fr',
       default_phone_region: 'FR',
     }
   end

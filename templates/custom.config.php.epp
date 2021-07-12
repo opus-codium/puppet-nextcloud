@@ -48,7 +48,7 @@ $CONFIG = array (
   'updater.release.channel' => 'production',
 
   // language
-  'default_language' => 'fr',
+  'default_language' => '<%= $nextcloud::default_language %>',
   'default_phone_region' => '<%= $nextcloud::default_phone_region %>',
 
   // URLs rewriting
