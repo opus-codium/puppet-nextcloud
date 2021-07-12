@@ -16,6 +16,7 @@ class nextcloud (
   Integer[0, 4] $log_level = 2,
   String[1] $trashbin_retention = 'auto',
   Array[String[1]] $services_to_restart_after_upgrade = [],
+  Optional[Nextcloud::Iso3166_1_alpha_2] $default_phone_region = undef,
 ){
   $base_dir            = "/srv/www/${hostname}"
   $persistent_data_dir = "${base_dir}/persistent-data"
