@@ -7,10 +7,10 @@
 class nextcloud (
   Stdlib::Fqdn $hostname,
   String[20] $database_password,
+  String[1] $initial_version,
   String[3,3] $php_version,
   String[1] $database_username = 'nextcloud',
   String[1] $database_name = 'nextcloud',
-  String[1] $initial_version = '19.0.1',
   String[1] $user = 'nextcloud',
   String[1] $group = $user,
   Integer[0, 4] $log_level = 2,
