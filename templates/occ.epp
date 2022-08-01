@@ -1,6 +1,16 @@
 #!/bin/sh
+
+fix_permissions () {
+  sudo chown -c root:root <%= $nextcloud::current_version_dir %>/config
+}
+
+trap fix_permissions EXIT
+
+[ "${OC_CONFIG_WRITABLE}" = "1" ] && sudo chown -c <%= $nextcloud::user %> <%= $nextcloud::current_version_dir %>/config
+
 cd <%= $nextcloud::current_version_dir %> && \
   sudo -u <%= $nextcloud::user %> \
     --preserve-env=OC_PASS \
     --preserve-env=PT__task \
+    --preserve-env=OC_CONFIG_WRITABLE \
     /usr/bin/php <%= $nextcloud::current_version_dir %>/occ "$@"

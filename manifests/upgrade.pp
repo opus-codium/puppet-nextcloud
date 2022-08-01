@@ -29,13 +29,6 @@ class nextcloud::upgrade(
     user  => $user,
     group => $group,
   }
-  -> nextcloud::occ::config { 'disable read only mode':
-    key   => 'config_is_read_only',
-    value => false,
-    path  => $source_current_dir,
-    user  => $user,
-    group => $group,
-  }
   -> nextcloud::download { $version:
     path => $base_dir,
   }
@@ -48,21 +41,15 @@ class nextcloud::upgrade(
     ensure => link,
     target => $source_next_dir,
   }
-  -> nextcloud::occ::exec { 'upgrade':
-    args  => 'upgrade',
-    path  => $current_version_dir,
-    user  => $user,
-    group => $group,
+  -> exec { 'occ upgrade':
+    args        => 'upgrade',
+    path        => $current_version_dir,
+    user        => $user,
+    group       => $group,
+    environment => [ 'OC_CONFIG_WRITABLE=1' ],
   }
   -> class { 'nextcloud::facts::version':
     version => $version,
-  }
-  -> nextcloud::occ::config { 'enable read only mode':
-    key   => 'config_is_read_only',
-    value => true,
-    path  => $current_version_dir,
-    user  => $user,
-    group => $group,
   }
   -> nextcloud::occ::exec { 'disable maintenance mode':
     args  => 'maintenance:mode --off',
@@ -75,10 +62,10 @@ class nextcloud::upgrade(
     group => $group,
   }
 
-  Nextcloud::Occ::Exec['upgrade'] ~> Nextcloud::Htaccess[$current_version_dir]
+  Exec['occ upgrade'] ~> Nextcloud::Htaccess[$current_version_dir]
 
   service { $services_to_restart_after_upgrade:
     ensure => 'running',
   }
-  Nextcloud::Occ::Exec['upgrade'] ~> Service[$services_to_restart_after_upgrade]
+  Exec['occ upgrade'] ~> Service[$services_to_restart_after_upgrade]
 }

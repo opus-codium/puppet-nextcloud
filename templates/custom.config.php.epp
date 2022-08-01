@@ -44,7 +44,7 @@ $CONFIG = array (
   'updatechecker' => false,
   'upgrade.disable-web' => true,
   'appstoreenabled' => getenv('PT__task') === false ? false : true,
-  'config_is_read_only' => true,
+  'config_is_read_only' => getenv('OC_CONFIG_WRITABLE') === false ? true : false,
   'updater.release.channel' => 'production',
 
   // language
