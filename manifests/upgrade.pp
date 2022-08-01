@@ -54,10 +54,6 @@ class nextcloud::upgrade(
     user  => $user,
     group => $group,
   }
-  -> nextcloud::htaccess { $current_version_dir:
-    user  => $user,
-    group => $group,
-  }
   -> class { 'nextcloud::facts::version':
     version => $version,
   }
@@ -71,6 +67,10 @@ class nextcloud::upgrade(
   -> nextcloud::occ::exec { 'disable maintenance mode':
     args  => 'maintenance:mode --off',
     path  => $current_version_dir,
+    user  => $user,
+    group => $group,
+  }
+  -> nextcloud::htaccess { $current_version_dir: # Nextcloud 23+ wants maintenance mode to be turn off before running any `occ` command… Dumb isnt it?
     user  => $user,
     group => $group,
   }
