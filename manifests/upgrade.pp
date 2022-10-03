@@ -23,11 +23,11 @@ class nextcloud::upgrade(
 
   $services_to_restart_after_upgrade = $nextcloud_facts['services_to_restart_after_upgrade']
 
-  nextcloud::occ::exec { 'enable maintenance mode':
-    args  => 'maintenance:mode --on',
-    path  => $source_current_dir,
-    user  => $user,
-    group => $group,
+  exec { 'occ maintenance on':
+    command     => "/usr/local/bin/occ maintenance:mode --on",
+    cwd         => $current_version_dir,
+    user        => 'root', # The wrapper relies on sudo to execute each parts.
+    environment => [ 'OC_CONFIG_WRITABLE=1' ],
   }
   -> nextcloud::download { $version:
     path => $base_dir,
@@ -42,20 +42,19 @@ class nextcloud::upgrade(
     target => $source_next_dir,
   }
   -> exec { 'occ upgrade':
-    args        => 'upgrade',
-    path        => $current_version_dir,
-    user        => $user,
-    group       => $group,
+    command     => "/usr/local/bin/occ upgrade",
+    cwd         => $current_version_dir,
+    user        => 'root', # The wrapper relies on sudo to execute each parts.
     environment => [ 'OC_CONFIG_WRITABLE=1' ],
   }
   -> class { 'nextcloud::facts::version':
     version => $version,
   }
-  -> nextcloud::occ::exec { 'disable maintenance mode':
-    args  => 'maintenance:mode --off',
-    path  => $current_version_dir,
-    user  => $user,
-    group => $group,
+  -> exec { 'occ maintenance off':
+    command     => "/usr/local/bin/occ maintenance:mode --off",
+    cwd         => $current_version_dir,
+    user        => 'root', # The wrapper relies on sudo to execute each parts.
+    environment => [ 'OC_CONFIG_WRITABLE=1' ],
   }
   -> nextcloud::htaccess { $current_version_dir: # Nextcloud 23+ wants maintenance mode to be turn off before running any `occ` command… Dumb isnt it?
     user  => $user,
