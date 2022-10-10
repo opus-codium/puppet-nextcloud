@@ -11,7 +11,7 @@ class nextcloud::config {
 
   file { "${nextcloud::config_dir}/custom.config.php":
     ensure  => file,
-    owner   => 'root',
+    owner   => $nextcloud::user,
     group   => $nextcloud::group,
     mode    => '0640',
     content => epp('nextcloud/custom.config.php.epp')
