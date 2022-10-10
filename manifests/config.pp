@@ -16,9 +16,4 @@ class nextcloud::config {
     mode    => '0640',
     content => epp('nextcloud/custom.config.php.epp')
   }
-  -> nextcloud::setup { $nextcloud::current_version_dir:
-    config_main_file => $nextcloud::config_main_file,
-    config_dir       => $nextcloud::config_dir,
-    apps_dir         => $nextcloud::apps_dir,
-  }
 }
