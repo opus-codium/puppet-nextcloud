@@ -7,8 +7,8 @@
   "source": "",
   "dependencies": [
     {
-      "name": "puppet-archive",
-      "version_requirement": ">= 4.0.0 < 5.0.0"
+      "name": "opuscodium-application",
+      "version_requirement": ">= 1.2.0 < 2.0.0"
     },
     {
       "name": "puppetlabs-postgresql",
@@ -38,7 +38,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 7.0.0"
+      "version_requirement": ">= 7.0.0 < 8.0.0"
     }
   ],
   "pdk-version": "2.1.0",

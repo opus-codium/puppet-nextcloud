@@ -22,4 +22,55 @@ class nextcloud::base {
     group  => $nextcloud::group,
     mode   => '0750',
   }
+
+  application::kind { 'nextcloud':
+    before_deploy_content => @(SH),
+      #!/bin/sh
+
+      set -e
+
+      occ() {
+        if [ -f ../current/occ ]; then
+          sudo -u ${USER_MAPPING_user} OC_CONFIG_WRITABLE=1 php ../current/occ "$@"
+        fi
+      }
+
+      cat > .mtree << END
+      /set type=dir uname=root gname=root mode=0755
+      .               nochange
+          config      uname=user gname=user mode=0750
+          ..
+          extra-apps  uname=user gname=user
+          ..
+      ..
+      END
+      occ maintenance:mode --on
+      | SH
+    after_deploy_content  => @(SH),
+      #!/bin/sh
+
+      set -e
+
+      occ() {
+        sudo -u ${USER_MAPPING_user} OC_CONFIG_WRITABLE=1 php ./occ "$@"
+      }
+
+      occ upgrade
+      occ maintenance:mode --off
+      occ maintenance:update:htaccess
+      | SH
+  }
+
+  application { "nextcloud-${nextcloud::hostname}":
+    application   => 'nextcloud',
+    kind          => 'nextcloud',
+    environment   => 'production',
+    path          => $nextcloud::base_dir,
+    user_mapping  => {
+      user   => $nextcloud::user,
+    },
+    group_mapping => {
+      user   => $nextcloud::group,
+    },
+  }
 }

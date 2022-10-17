@@ -13,7 +13,6 @@ class nextcloud::install {
   $nextcloud_facts = $facts['nextcloud']
 
   if $nextcloud_facts == undef {
-    $base_name = fqdn_rand_string(10)
     $nextcloud_initial_admin_username = "admin-${fqdn_rand_string(5)}"
     $nextcloud_initial_admin_password = fqdn_rand_string(10)
 
