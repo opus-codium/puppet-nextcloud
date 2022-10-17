@@ -1,7 +1,7 @@
 {
   "name": "opuscodium-nextcloud",
-  "version": "0.2.0",
-  "author": "mtancoigne",
+  "version": "0.3.0",
+  "author": "Romuald Conty",
   "summary": "",
   "license": "Apache-2.0",
   "source": "",
@@ -16,7 +16,7 @@
     },
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 4.0.0 < 7.0.0"
+      "version_requirement": ">= 4.0.0 < 8.0.0"
     }
   ],
   "operatingsystem_support": [
