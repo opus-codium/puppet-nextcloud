@@ -23,7 +23,6 @@ class nextcloud (
   $persistent_data_dir = "${base_dir}/persistent-data"
   $data_dir            = "${persistent_data_dir}/data"
   $config_dir          = "${persistent_data_dir}/config"
-  $config_main_file    = "${config_dir}/main.php"
   $apps_dir            = "${persistent_data_dir}/extra-apps"
   $current_version_dir = "${base_dir}/current"
 
