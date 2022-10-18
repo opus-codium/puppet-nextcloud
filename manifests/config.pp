@@ -9,6 +9,13 @@ class nextcloud::config {
 
   assert_private()
 
+  file { $nextcloud::config_dir:
+    ensure => directory,
+    owner  => $nextcloud::user,
+    group  => $nextcloud::group,
+    mode   => '0750',
+  }
+
   file { "${nextcloud::config_dir}/custom.config.php":
     ensure  => file,
     owner   => $nextcloud::user,
