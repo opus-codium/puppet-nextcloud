@@ -61,6 +61,9 @@ class nextcloud::base {
         sudo -u ${USER_MAPPING_user} OC_CONFIG_WRITABLE=1 php ./occ "$@"
       }
 
+      # Nextcloud checks files for integry, and considers additional files as corrupted.
+      rm .mtree
+
       occ upgrade
       occ maintenance:mode --off
 
