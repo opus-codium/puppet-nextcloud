@@ -63,7 +63,10 @@ class nextcloud::base {
 
       occ upgrade
       occ maintenance:mode --off
+
+      chown ${USER_MAPPING_user}:${GROUP_MAPPING_user} .htaccess
       occ maintenance:update:htaccess
+      chown root:root .htaccess
       | SH
   }
 
