@@ -52,7 +52,7 @@ class nextcloud::base {
       END
       occ maintenance:mode --on
       | SH
-    after_deploy_content  => @(SH),
+    after_deploy_content  => inline_epp(@(EPP)),
       #!/bin/sh
 
       set -e
@@ -67,7 +67,9 @@ class nextcloud::base {
       chown ${USER_MAPPING_user}:${GROUP_MAPPING_user} .htaccess
       occ maintenance:update:htaccess
       chown root:root .htaccess
-      | SH
+
+      systemctl restart <%= $nextcloud::services_to_restart_after_upgrade.join(' ') %>
+      | EPP
   }
 
   application { "nextcloud-${nextcloud::hostname}":
