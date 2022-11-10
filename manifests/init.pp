@@ -7,7 +7,6 @@
 class nextcloud (
   Stdlib::Fqdn $hostname,
   String[20] $database_password,
-  String[1] $initial_version,
   String[3,3] $php_version,
   String[1] $database_username = 'nextcloud',
   String[1] $database_name = 'nextcloud',
@@ -18,7 +17,7 @@ class nextcloud (
   Array[String[1]] $services_to_restart_after_upgrade = [],
   Optional[Nextcloud::Iso639_1] $default_language = undef,
   Optional[Nextcloud::Iso3166_1_alpha_2] $default_phone_region = undef,
-){
+) {
   $base_dir            = "/srv/www/${hostname}"
   $persistent_data_dir = "${base_dir}/persistent-data"
   $data_dir            = "${persistent_data_dir}/data"
@@ -29,16 +28,12 @@ class nextcloud (
   contain nextcloud::database
   contain nextcloud::dependencies
   contain nextcloud::base
-  contain nextcloud::install
-  contain nextcloud::facts
   include nextcloud::config
   contain nextcloud::wrapper
 
   Class['nextcloud::dependencies']
   -> Class['nextcloud::database']
   -> Class['nextcloud::base']
-  -> Class['nextcloud::install']
-  -> Class['nextcloud::facts']
 
   Class['nextcloud::base']
   -> Class['nextcloud::config']

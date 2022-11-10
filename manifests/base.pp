@@ -64,7 +64,24 @@ class nextcloud::base {
       # Nextcloud checks files for integry, and considers additional files as corrupted.
       rm .mtree
 
-      occ upgrade
+      if [ -f '../persistent-data/config/config.php' ]; then
+        occ upgrade
+      else
+        $nextcloud_initial_admin_username = "admin-${$}"
+        $nextcloud_initial_admin_password = "secret-${$}"
+
+        occ maintenance:install \
+          --database pgsql \
+          --database-name <%= $nextcloud::database_name %> \
+          --database-user <%= $nextcloud::database_username %> \
+          --database-pass <%= $nextcloud::database_password %> \
+          --admin-user $nextcloud_initial_admin_username \
+          --admin-pass $nextcloud_initial_admin_password \
+          --data-dir <%= $nextcloud::data_dir %>
+
+        occ user:delete $nextcloud_initial_admin_username
+      fi
+
       occ maintenance:mode --off
 
       chown ${USER_MAPPING_user}:${GROUP_MAPPING_user} .htaccess

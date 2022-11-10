@@ -1,5 +1,5 @@
 {
-  "description": "Upgrade Nextcloud",
+  "description": "Deploy Nextcloud",
   "input_method": "stdin",
   "files": [
     "application/tasks/utils/application_factory.rb",
@@ -11,7 +11,7 @@
   ],
   "parameters": {
     "version": {
-      "description": "The version to upgrade to",
+      "description": "The version to deploy",
       "type": "String[1]"
     }
   }

@@ -4,8 +4,8 @@
 require_relative '../../ruby_task_helper/files/task_helper'
 require_relative '../../application/tasks/utils/application_factory'
 
-# Upgrade a nextcloud instance
-class NextcloudUpgradeTask < TaskHelper
+# Deploy a nextcloud instance
+class NextcloudDeployTask < TaskHelper
   def task(version:, **_kwargs)
     application = 'nextcloud'
     environment = 'production'
@@ -20,4 +20,4 @@ class NextcloudUpgradeTask < TaskHelper
   end
 end
 
-NextcloudUpgradeTask.run if $PROGRAM_NAME == __FILE__
+NextcloudDeployTask.run if $PROGRAM_NAME == __FILE__
