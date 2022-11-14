@@ -62,7 +62,7 @@ class nextcloud::base {
         echo "Installation mode."
       fi
       | SH
-    after_deploy_content  => inline_epp(@(EPP)),
+    after_activate_content  => inline_epp(@(EPP)),
       #!/bin/sh
 
       set -e
