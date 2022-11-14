@@ -16,7 +16,13 @@ class nextcloud::base {
     managehome => true,
   }
 
-  file { $nextcloud::data_dir:
+  file { $nextcloud::persistent_data_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0751',
+  }
+  -> file { $nextcloud::data_dir:
     ensure => directory,
     owner  => $nextcloud::user,
     group  => $nextcloud::group,
