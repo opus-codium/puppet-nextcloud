@@ -43,7 +43,7 @@ class nextcloud::base {
 
       occ() {
         if [ -f ../current/occ ]; then
-          sudo -u ${USER_MAPPING_user} OC_CONFIG_WRITABLE=1 php ../current/occ "$@"
+          (cd ../current && sudo -u ${USER_MAPPING_user} OC_CONFIG_WRITABLE=1 php ./occ "$@")
         fi
       }
 
