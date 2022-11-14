@@ -56,7 +56,11 @@ class nextcloud::base {
           ..
       ..
       END
-      occ maintenance:mode --on
+      if [ -f '../persistent-data/config/config.php' ]; then
+        occ maintenance:mode --on
+      else
+        echo "Installation mode."
+      fi
       | SH
     after_deploy_content  => inline_epp(@(EPP)),
       #!/bin/sh
