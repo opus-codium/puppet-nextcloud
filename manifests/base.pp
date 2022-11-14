@@ -23,6 +23,12 @@ class nextcloud::base {
     mode   => '0750',
   }
 
+  cron { 'nextcloud-cron':
+    command => "/usr/bin/php -f ${nextcloud::current_version_dir}/cron.php",
+    user    => $nextcloud::user,
+    minute  => '*/15',
+  }
+
   application::kind { 'nextcloud':
     before_deploy_content => @(SH),
       #!/bin/sh
