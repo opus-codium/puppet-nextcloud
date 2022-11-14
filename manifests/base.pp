@@ -73,8 +73,8 @@ class nextcloud::base {
       if [ -f '../persistent-data/config/config.php' ]; then
         occ upgrade
       else
-        $nextcloud_initial_admin_username = "admin-${$}"
-        $nextcloud_initial_admin_password = "secret-${$}"
+        nextcloud_initial_admin_username="admin-${$}"
+        nextcloud_initial_admin_password="secret-${$}"
 
         occ maintenance:install \
           --database pgsql \
