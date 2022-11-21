@@ -8,6 +8,7 @@ class nextcloud::dependencies {
   assert_private()
 
   $requirements = [
+    'bzip2',
     'libmagickcore-6.q16-6-extra',
     'php-apcu',
     'php-imagick',
