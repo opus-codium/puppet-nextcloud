@@ -6,12 +6,13 @@
 
 This Puppet module simplifies the installation and configuration of _Nextcloud_ in your infrastructure.
 
-Choices:
+## Choices
+
 * Let the Puppet administrator configure the web server he wants
 * Use PostgreSQL database, only
-* Provide plans and tasks to help administrator to setup its instance and reduce the in-software administrator privileges
+* Provide tasks to help administrator to setup its instance and reduce the in-software administrator privileges
 
-Hardening features:
+## Hardening features
 
 * Set config file as read-only, to prevent from modification from the web UI
 * Split additionnal apps from core apps, to track what comes from core and what is added
@@ -19,8 +20,9 @@ Hardening features:
 * Disable the app store; Again its a security breach to let user to install third party apps without a review
 * Install without default administrator user
 
-Wishes:
-* Core upgrade plan should check version (last minor to upgrade to next major)
+## Wishes
+
+* Core install/upgrade task should check version (last minor to upgrade to next major)
 * Allow to install apps using conformation (puppet agent) instead of orchestration (bolt/choria)
 * Detect which post-upgrade steps are needed (e.g. `db:add-missing-indices`, `db:add-missing-primary-keys`, etc.) using CLI/orchestration
 * Use different users to deploy and run the application¹
