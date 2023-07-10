@@ -12,6 +12,6 @@ class nextcloud::wrapper {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => epp('nextcloud/occ.epp')
+    content => epp('nextcloud/occ.epp'),
   }
 }
