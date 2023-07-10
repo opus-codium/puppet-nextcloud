@@ -12,6 +12,6 @@ class nextcloud::database {
 
   postgresql::server::db { $nextcloud::database_name:
     user     => $nextcloud::database_username,
-    password => postgresql_password($nextcloud::database_username, $nextcloud::database_password),
+    password => postgresql::postgresql_password($nextcloud::database_username, $nextcloud::database_password),
   }
 }

@@ -8,15 +8,15 @@
   "dependencies": [
     {
       "name": "opuscodium-application",
-      "version_requirement": ">= 1.2.0 < 2.0.0"
+      "version_requirement": ">= 1.2.0 < 5.0.0"
     },
     {
       "name": "puppetlabs-postgresql",
-      "version_requirement": ">= 5.12.1 < 6.0.0"
+      "version_requirement": ">= 6.4.1 < 10.0.0"
     },
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 4.0.0 < 8.0.0"
+      "version_requirement": ">= 4.0.0 < 10.0.0"
     }
   ],
   "operatingsystem_support": [
