@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require_relative '../../ruby_task_helper/files/task_helper.rb'
+require_relative '../../ruby_task_helper/files/task_helper'
 require 'json'
 require 'securerandom'
 require 'open3'
@@ -83,7 +84,7 @@ class UserInviteTask < TaskHelper
       request['Content-Type'] = 'application/json;charset=utf-8'
 
       request.body = {
-        'user': user
+        user: user
       }.to_json
 
       response = http.request(request)
@@ -93,6 +94,4 @@ class UserInviteTask < TaskHelper
   end
 end
 
-if __FILE__ == $PROGRAM_NAME
-  UserInviteTask.run
-end
+UserInviteTask.run if __FILE__ == $PROGRAM_NAME
