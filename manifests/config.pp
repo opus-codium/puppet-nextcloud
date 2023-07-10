@@ -21,6 +21,6 @@ class nextcloud::config {
     owner   => $nextcloud::user,
     group   => $nextcloud::group,
     mode    => '0640',
-    content => epp('nextcloud/custom.config.php.epp')
+    content => epp('nextcloud/custom.config.php.epp'),
   }
 }
