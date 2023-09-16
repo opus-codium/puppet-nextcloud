@@ -1,9 +1,8 @@
 # @summary A short summary of the purpose of this defined type.
 #
-# A description of what this defined type does
-#
-# @example
-#   nextcloud::htaccess { 'namevar': }
+# @param user Owner of the .htacess file
+# @param group Group of the .htacess file
+# @param path Path to the .htaccess file
 define nextcloud::htaccess (
   String[1] $user,
   String[1] $group,

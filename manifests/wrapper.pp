@@ -1,4 +1,4 @@
-# @summary Create a wrapper to ease `occ` run as administrator
+# @summary Manage Nextcloup wrapper
 #
 # This creates a wrapper script to allow system administrator to run
 # `occ` command without specifying nextcloud's user and path.

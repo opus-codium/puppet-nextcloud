@@ -1,9 +1,4 @@
-# @summary Create config files and setup sources directory
-#
-# This creates custom configuration files then setup current sources directory
-#
-# @example
-#   include nextcloud::config
+# @summary Manage Nextcloud configuration
 class nextcloud::config {
   include nextcloud
 

@@ -1,9 +1,17 @@
-# @summary A short summary of the purpose of this class
+# @summary Manage NextCloud
 #
-# A description of what this class does
-#
-# @example
-#   include nextcloud
+# @param hostname The hostname of the instance
+# @param database_password Password for the database
+# @param php_version Version of PHP to use
+# @param database_username Username for the database
+# @param database_name Name of the database
+# @param user Owner of the instance files
+# @param group Group of the instance files
+# @param log_level Log level
+# @param trashbin_retention Retention mode for the trash
+# @param services_to_restart_after_upgrade A list of services to notify on update
+# @param default_language Default language
+# @param default_phone_region Defaulte phone region
 class nextcloud (
   Stdlib::Fqdn $hostname,
   String[20] $database_password,
