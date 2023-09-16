@@ -1,9 +1,4 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
-#
-# @example
-#   include nextcloud::database
+# @summary Manage Nextcloud database
 class nextcloud::database {
   include nextcloud
   include postgresql::server
