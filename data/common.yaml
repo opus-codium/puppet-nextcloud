@@ -1,0 +1,2 @@
+---
+nextcloud::dependencies::libmagickcore_extra_package_name: "libmagickcore-6.q16-6-extra"
