@@ -2,6 +2,8 @@
 #
 # This creates a wrapper script to allow system administrator to run
 # `occ` command without specifying nextcloud's user and path.
+#
+# @api private
 class nextcloud::wrapper {
   include nextcloud
 
