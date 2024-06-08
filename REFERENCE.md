@@ -6,12 +6,17 @@
 
 ### Classes
 
+#### Public Classes
+
 * [`nextcloud`](#nextcloud): Manage NextCloud
-* [`nextcloud::base`](#nextcloud--base): Manage Nextcloud base config
-* [`nextcloud::config`](#nextcloud--config): Manage Nextcloud configuration
-* [`nextcloud::database`](#nextcloud--database): Manage Nextcloud database
-* [`nextcloud::dependencies`](#nextcloud--dependencies): Manage Nextcloud dependencies
-* [`nextcloud::wrapper`](#nextcloud--wrapper): Manage Nextcloup wrapper
+
+#### Private Classes
+
+* `nextcloud::base`: Manage Nextcloud base config
+* `nextcloud::config`: Manage Nextcloud configuration
+* `nextcloud::database`: Manage Nextcloud database
+* `nextcloud::dependencies`: Manage Nextcloud dependencies
+* `nextcloud::wrapper`: Manage Nextcloup wrapper
 
 ### Defined types
 
@@ -147,27 +152,6 @@ Data type: `Optional[Nextcloud::Iso3166_1_alpha_2]`
 Defaulte phone region
 
 Default value: `undef`
-
-### <a name="nextcloud--base"></a>`nextcloud::base`
-
-Manage Nextcloud base config
-
-### <a name="nextcloud--config"></a>`nextcloud::config`
-
-Manage Nextcloud configuration
-
-### <a name="nextcloud--database"></a>`nextcloud::database`
-
-Manage Nextcloud database
-
-### <a name="nextcloud--dependencies"></a>`nextcloud::dependencies`
-
-Manage Nextcloud dependencies
-
-### <a name="nextcloud--wrapper"></a>`nextcloud::wrapper`
-
-This creates a wrapper script to allow system administrator to run
-`occ` command without specifying nextcloud's user and path.
 
 ## Defined types
 

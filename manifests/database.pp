@@ -1,4 +1,6 @@
 # @summary Manage Nextcloud database
+#
+# @api private
 class nextcloud::database {
   include nextcloud
   include postgresql::server

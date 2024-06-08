@@ -1,4 +1,6 @@
 # @summary Manage Nextcloud configuration
+#
+# @api private
 class nextcloud::config {
   include nextcloud
 

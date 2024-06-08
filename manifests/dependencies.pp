@@ -1,4 +1,6 @@
 # @summary Manage Nextcloud dependencies
+#
+# @api private
 class nextcloud::dependencies (
   String[1] $libmagickcore_extra_package_name,
 ) {
