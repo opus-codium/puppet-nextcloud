@@ -1,10 +1,12 @@
 # @summary Manage Nextcloud dependencies
-class nextcloud::dependencies {
+class nextcloud::dependencies (
+  String[1] $libmagickcore_extra_package_name,
+) {
   assert_private()
 
   $requirements = [
     'bzip2',
-    'libmagickcore-6.q16-6-extra',
+    $libmagickcore_extra_package_name,
     'php-apcu',
     'php-imagick',
     "php${nextcloud::php_version}",
