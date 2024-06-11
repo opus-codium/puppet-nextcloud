@@ -3,4 +3,4 @@
 cd <%= $nextcloud::current_version_dir %> && \
   sudo -u <%= $nextcloud::user %> \
     --preserve-env=OC_PASS \
-    OC_CONFIG_WRITABLE=1 /usr/bin/php <%= $nextcloud::current_version_dir %>/occ "$@"
+    OC_CONFIG_WRITABLE=1 OC_CONFIG_APPSTORE_ENABLE=1 /usr/bin/php <%= $nextcloud::current_version_dir %>/occ "$@"
