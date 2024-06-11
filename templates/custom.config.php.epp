@@ -63,4 +63,7 @@ $CONFIG = array (
 
   // silent annoying messages
   'encryption.legacy_format_support' => false,
+
+  // maintenance schedule
+  'maintenance_window_start' => 2, // From 2 AM. to 6 AM. UTC
 );
