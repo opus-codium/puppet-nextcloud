@@ -1,0 +1,3 @@
+---
+nextcloud::dependencies::libmagickcore_extra_package_name: "libmagickcore-7.q16-10-extra"
+nextcloud::php_version: "8.4"
