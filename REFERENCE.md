@@ -62,6 +62,9 @@ The following parameters are available in the `nextcloud` class:
 * [`services_to_restart_after_upgrade`](#-nextcloud--services_to_restart_after_upgrade)
 * [`default_language`](#-nextcloud--default_language)
 * [`default_phone_region`](#-nextcloud--default_phone_region)
+* [`mail_domain`](#-nextcloud--mail_domain)
+* [`mail_smtpmode`](#-nextcloud--mail_smtpmode)
+* [`enable_previews`](#-nextcloud--enable_previews)
 
 ##### <a name="-nextcloud--hostname"></a>`hostname`
 
@@ -152,6 +155,30 @@ Data type: `Optional[Nextcloud::Iso3166_1_alpha_2]`
 Defaulte phone region
 
 Default value: `undef`
+
+##### <a name="-nextcloud--mail_domain"></a>`mail_domain`
+
+Data type: `Stdlib::Fqdn`
+
+Mail domain for outgoing emails
+
+Default value: `$hostname`
+
+##### <a name="-nextcloud--mail_smtpmode"></a>`mail_smtpmode`
+
+Data type: `Enum['sendmail', 'smtp']`
+
+SMTP mode for sending emails
+
+Default value: `'smtp'`
+
+##### <a name="-nextcloud--enable_previews"></a>`enable_previews`
+
+Data type: `Boolean`
+
+Enable preview generation
+
+Default value: `true`
 
 ## Defined types
 
