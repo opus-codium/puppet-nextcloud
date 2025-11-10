@@ -12,6 +12,7 @@
 # @param services_to_restart_after_upgrade A list of services to notify on update
 # @param default_language Default language
 # @param default_phone_region Defaulte phone region
+# @param mail_domain Mail domain for outgoing emails
 class nextcloud (
   Stdlib::Fqdn $hostname,
   String[20] $database_password,
@@ -25,6 +26,7 @@ class nextcloud (
   Array[String[1]] $services_to_restart_after_upgrade = [],
   Optional[Nextcloud::Iso639_1] $default_language = undef,
   Optional[Nextcloud::Iso3166_1_alpha_2] $default_phone_region = undef,
+  Stdlib::Fqdn $mail_domain = $hostname,
 ) {
   $base_dir            = "/srv/www/${hostname}"
   $persistent_data_dir = "${base_dir}/persistent-data"
