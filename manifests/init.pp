@@ -13,6 +13,7 @@
 # @param default_language Default language
 # @param default_phone_region Defaulte phone region
 # @param mail_domain Mail domain for outgoing emails
+# @param mail_smtpmode SMTP mode for sending emails
 class nextcloud (
   Stdlib::Fqdn $hostname,
   String[20] $database_password,
@@ -27,6 +28,7 @@ class nextcloud (
   Optional[Nextcloud::Iso639_1] $default_language = undef,
   Optional[Nextcloud::Iso3166_1_alpha_2] $default_phone_region = undef,
   Stdlib::Fqdn $mail_domain = $hostname,
+  Enum['sendmail', 'smtp'] $mail_smtpmode = 'smtp',
 ) {
   $base_dir            = "/srv/www/${hostname}"
   $persistent_data_dir = "${base_dir}/persistent-data"

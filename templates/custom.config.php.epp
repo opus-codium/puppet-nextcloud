@@ -38,7 +38,7 @@ $CONFIG = array (
   'mail_domain' => '<%= $nextcloud::mail_domain %>',
   'mail_from_address' => 'no-reply',
   'mail_smtpauthtype' => 'LOGIN',
-  'mail_smtpmode' => 'smtp',
+  'mail_smtpmode' => '<%= $nextcloud::mail_smtpmode %>',
 
   // hardening
   'updatechecker' => false,
