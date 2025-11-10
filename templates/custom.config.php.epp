@@ -61,6 +61,9 @@ $CONFIG = array (
   // trashbin
   'trashbin_retention_obligation' => '<%= $nextcloud::trashbin_retention %>',
 
+  // previews
+  'enable_previews' => <%= $nextcloud::enable_previews %>,
+
   // silent annoying messages
   'encryption.legacy_format_support' => false,
 
