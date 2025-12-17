@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.0.1](https://github.com/opus-codium/puppet-nextcloud/tree/v1.0.1) (2025-12-17)
+
+[Full Changelog](https://github.com/opus-codium/puppet-nextcloud/compare/v1.0.0...v1.0.1)
+
+**Fixed bugs:**
+
+- Fix metadata [\#24](https://github.com/opus-codium/puppet-nextcloud/pull/24) ([neomilium](https://github.com/neomilium))
+
 ## [v1.0.0](https://github.com/opus-codium/puppet-nextcloud/tree/v1.0.0) (2025-12-17)
 
 [Full Changelog](https://github.com/opus-codium/puppet-nextcloud/compare/45bb638fb8bfeee107680fb359815ce6db99222d...v1.0.0)
