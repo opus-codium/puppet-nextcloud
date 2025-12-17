@@ -1,6 +1,6 @@
 {
   "name": "opuscodium-nextcloud",
-  "version": "1.0.1",
+  "version": "1.0.2-rc0",
   "author": "Romuald Conty",
   "summary": "Installs, configures, and manages Nextcloud",
   "license": "Apache-2.0",
