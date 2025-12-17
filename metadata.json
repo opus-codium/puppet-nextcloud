@@ -2,9 +2,9 @@
   "name": "opuscodium-nextcloud",
   "version": "1.0.1-rc0",
   "author": "Romuald Conty",
-  "summary": "",
+  "summary": "Installs, configures, and manages Nextcloud",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/opus-codium/puppet-nextcloud",
   "dependencies": [
     {
       "name": "opuscodium-application",
