@@ -27,7 +27,7 @@ class nextcloud::base {
   }
 
   cron { 'nextcloud-cron':
-    command => "/usr/bin/php -f ${nextcloud::current_version_dir}/cron.php",
+    command => "/usr/bin/php -f ${nextcloud::current_version_dir}/cron.php > /dev/null 2>&1",
     user    => $nextcloud::user,
     minute  => '*/15',
   }
