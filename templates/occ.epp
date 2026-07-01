@@ -1,6 +1,18 @@
 #!/bin/sh
 
-cd <%= $nextcloud::current_version_dir %> && \
-  sudo -u <%= $nextcloud::user %> \
-    --preserve-env=OC_PASS \
-    OC_CONFIG_WRITABLE=1 OC_CONFIG_APPSTORE_ENABLE=1 /usr/bin/php <%= $nextcloud::current_version_dir %>/occ "$@"
+NC_DIR="<%= $nextcloud::current_version_dir %>"
+NC_USER="<%= $nextcloud::user %>"
+
+cd "$NC_DIR" || exit 1
+
+if [ "$(id -un)" = "$NC_USER" ]; then
+    # Already the nextcloud user: run directly, no sudo, no extra envvars.
+    exec /usr/bin/php "$NC_DIR/occ" "$@"
+else
+    # Running as someone else: drop to nextcloud via sudo, with the hardcoded envvars.
+    exec sudo -u "$NC_USER" \
+        --preserve-env=OC_PASS \
+        OC_CONFIG_WRITABLE=1 \
+        OC_CONFIG_APPSTORE_ENABLE=1 \
+        /usr/bin/php "$NC_DIR/occ" "$@"
+fi
