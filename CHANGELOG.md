@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.1.0](https://github.com/opus-codium/puppet-nextcloud/tree/v1.1.0) (2026-07-01)
+
+[Full Changelog](https://github.com/opus-codium/puppet-nextcloud/compare/v1.0.1...v1.1.0)
+
+**Implemented enhancements:**
+
+- Make script runable as nextcloud user [\#27](https://github.com/opus-codium/puppet-nextcloud/pull/27) ([neomilium](https://github.com/neomilium))
+- Ignore output from cron execution [\#26](https://github.com/opus-codium/puppet-nextcloud/pull/26) ([smortex](https://github.com/smortex))
+
 ## [v1.0.1](https://github.com/opus-codium/puppet-nextcloud/tree/v1.0.1) (2025-12-17)
 
 [Full Changelog](https://github.com/opus-codium/puppet-nextcloud/compare/v1.0.0...v1.0.1)
